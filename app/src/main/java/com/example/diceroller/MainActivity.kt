@@ -60,17 +60,11 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun DiceRollerApp() {
-    DiceWithButtonAndImage(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)
-    )
-}
+fun DiceRollerApp(modifier: Modifier = Modifier) {
+    var result by remember { mutableStateOf(1) }
+    var result2 by remember { mutableStateOf(1) }
 
-@Composable
-fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
-    var result by remember { mutableStateOf( 1) }
-    val imageResource = when(result) {
+    val imageResource = when (result) {
         1 -> R.drawable.dice_1
         2 -> R.drawable.dice_2
         3 -> R.drawable.dice_3
@@ -78,8 +72,8 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         5 -> R.drawable.dice_5
         else -> R.drawable.dice_6
     }
-    var resultado by remember { mutableStateOf( 1) }
-    val imagen = when(result) {
+
+    val imageResource2 = when (result2) {
         1 -> R.drawable.dice_1
         2 -> R.drawable.dice_2
         3 -> R.drawable.dice_3
@@ -87,11 +81,18 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         5 -> R.drawable.dice_5
         else -> R.drawable.dice_6
     }
+
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter = painterResource(imageResource), contentDescription = result.toString())
-        
+
+
+        Image(painter = painterResource(imageResource2), contentDescription = result2.toString())
+
         Button(
-            onClick = { result = (1..6).random() },
+            onClick = {
+                result = (1..6).random()
+                result2 = (1..6).random()
+            },
         ) {
             Text(text = stringResource(R.string.roll), fontSize = 24.sp)
         }
